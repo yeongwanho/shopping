@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-with, user-scalable=no, initial-scale=1.0, maximum-scale=1.0 minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Apple</title>
+
+    <link rel="stylesheet" href="images/styles.css">
+    <link rel="stylesheet" type="text/css" href="images/main/mainStyles.css">
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <nav class="nav">
+            <ul class="nav-list nav-list-mobile">
+                <li class="nav-item">
+                    <div class="mobile-menu">
+                        <span class="line line-top"></span>
+                        <span class="line line-bottom"></span>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link nav-link-apple"></a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link nav-link-bag"></a>
+                </li>
+            </ul>
+            <!--/.nav-list nav-list-mobile -->
+            
+                <div class="nav-main-top">
+                    <a href="#" class="nav-top"></a>
+                </div>
+            
+            
+            <ul class="nav-list nav-list-larger">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Outwear</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Top</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Bottom</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Dresses</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">ACC</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="community">Community</a>
+                    
+                </li>
+                
+            </ul>
+            <!--/.nav-list nav-list-larger -->
+
+        </nav>
+    </div>
+    
+</header>
+<section id="container">
+    <div class="arrow prev" onclick = "prevNext(-1)">&#10094;</div>
+    <div class="arrow next" onclick = "prevNext(1)">&#10095;</div>
+
+    <div class="slideNum">
+        <span id="thisSlide" hidden>0</span><span id="allSlide" hidden>0</span>
+    </div>
+
+    <article class="slides">
+        <img src="images/main/main-1.jpg" alt="">
+    </article><!--1-->
+    <article class="slides">
+        <img src="images/main/main-2.jpg" alt="">
+    </article><!--2-->
+</section><!-- } container-->
+
+<!--pager {-->
+<section id="pager">
+    <span class="dots on" onclick="currentSlide(1)"></span>
+    <span class="dots" onclick="currentSlide(2)"></span>
+    
+</section><!--pager }-->
+
+
+
+<!-- 스크립트 -->
+
+<script src="images/main/slide.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
