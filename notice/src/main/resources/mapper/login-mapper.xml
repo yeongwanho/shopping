@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwanho.notice.login.mapper.LoginMapper">
+    <select id="login" parameterType="com.gwanho.notice.login.vo.LoginForm" resultType="com.gwanho.notice.member.vo.Member">
+    select login_id,password,name from member where login_id=#{loginId} and password=#{password}
+    </select>
+</mapper>

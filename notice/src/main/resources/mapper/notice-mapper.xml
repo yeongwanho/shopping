@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwanho.notice.notice.mapper.BoardMapper">
+    <insert id="insertNotice" parameterType="com.gwanho.notice.notice.vo.Board">
+        INSERT INTO board
+        SET login_id=#{loginId},
+            title=#{title},
+            writer=#{writer},
+            content=#{content},
+            first_input_dt=now(),
+            last_input_dt=now(),
+            use_yn='Y'
+
+    </insert>
+    <select id="findAll" resultType="com.gwanho.notice.notice.vo.Board"
+            parameterType="com.gwanho.notice.notice.vo.PageMaker">
+        select *
+        from board
+        ORDER BY board_id DESC
+            LIMIT #{startIndex}, #{pageSize}
+    </select>
+    <select id="findById" resultType="com.gwanho.notice.notice.vo.Board" parameterType="Long">
+        select *
+        from board
+        where board_id = #{id}
+    </select>
+
+    <select id="findByFileId" resultType="com.gwanho.notice.notice.vo.BoardFile" parameterType="Long">
+        select *
+        from file
+        where board_id = #{id}
+    </select>
+    <update id="updateById" parameterType="com.gwanho.notice.notice.vo.Board">
+        update board
+        SET title=#{title},
+            content=#{content},
+            last_input_dt=now()
+        where board_id = #{boardId}
+    </update>
+    <update id="boardHit" parameterType="com.gwanho.notice.notice.vo.Board">
+        update board
+        SET hit = hit + 1
+        where board_id = #{id}
+    </update>
+    <insert id="insertFiles" parameterType="com.gwanho.notice.notice.vo.BoardFile">
+        INSERT INTO file
+        SET board_id=#{boardId},
+            file_name=#{fileName},
+            store_file_name=#{storeFileName}
+
+    </insert>
+
+    <select id="selectId" resultType="Long">
+        SELECT LAST_INSERT_ID()
+    </select>
+
+    <select id="findAllCnt" resultType="int">
+        select count(*)
+        from board
+    </select>
+
+    <select id="selectFindOne" parameterType="String" resultType="com.gwanho.notice.notice.vo.Board">
+        select * from board where content like  CONCAT('%',#{search},'%') ORDER BY board_id DESC
+    </select>
+
+</mapper>

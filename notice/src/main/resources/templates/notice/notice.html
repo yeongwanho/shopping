@@ -1,0 +1,140 @@
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../../static/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand"></a>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{|/board|}">Boards</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">News</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="d-flex" action="/board/search?" method="get">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
+                <button class="btn btn-outline-secondary" type="submit" style="margin-right:10px">Search</button>
+            </form>
+                    <button class="btn btn-outline-secondary float-end login"
+                            th:value="${login}"
+                            th:onclick="|location.href='@{/login}'|"
+                            type="button">로그인
+                    </button>
+
+
+        </div>
+    </div>
+</nav>
+
+<div class="container" style="max-width: 1500px">
+    <div class="py-5 text-center">
+        <h2>게시판</h2>
+    </div>
+    <div class="col">
+        <button class="btn btn-primary float-end board"
+                style="display: none"
+                th:onclick="|location.href='@{/board/add}'|"
+                type="button">게시글 등록
+        </button>
+    </div>
+    <hr class="my-4">
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>게시번호</th>
+                <th>제목</th>
+                <th>글쓴이</th>
+                <th>시간</th>
+                <th>조회수</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${board}">
+                <td th:text="${item.boardId}">게시번호</a></td>
+                <td><a th:href="@{|/board/${item.boardId}|}" th:text="${item.title}" >제목</a></td>
+                <td th:text="${item.writer}">글쓴이</td>
+                <td th:text="${#dates.format(item.firstInputDt,'yyyy-MM-dd HH:mm:ss')}">입력시간</td>
+                <td th:text="${item.hit}">조회수</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 게시판 하단의 페이징 버튼 -->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" th:href="@{|/board?page=1|}" aria-label="Previous">
+                    <span aria-hidden="true">처음</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" th:href="@{|/board?page=${pageMaker.prevBlock}|}" aria-label="Previous" th:value="${pageMaker.prevBlock}">
+                    <span aria-hidden="true">이전</span>
+                </a>
+            </li>
+            <th:block th:with="start = ${pageMaker.startPage}, end = ${pageMaker.endPage}">
+                <li class="page-item"
+                    th:with="start = ${pageMaker.startPage}, end = ${pageMaker.endPage}"
+                    th:each="pageButton : ${#numbers.sequence(start, end)}">
+                    <a class="page-link" th:href="@{|/board?page=${pageButton}|}" th:text="${pageButton}"></a>
+                </li>
+            </th:block>
+            <li class="page-item">
+                <a class="page-link" th:href="@{|/board?page=${pageMaker.nextBlock}|}" aria-label="Next"th:value="${pageMaker.nextBlock}">
+
+                    <span aria-hidden="true">다음</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" th:href="@{|/board?page=${pageMaker.totalPageCnt}|}" aria-label="Previous">
+                    <span aria-hidden="true">끝</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<!-- /container -->
+<script th:inline="javascript">
+
+    console.log(list);
+    if (document.querySelector(".btn.btn-outline-secondary.float-end.login").getAttribute("value")==='true'){
+
+        console.log(document.querySelector(".btn.btn-primary.float-end.board").setAttribute('style','display: \'\''));
+        console.log(document.querySelector(".btn.btn-outline-secondary.float-end.login").textContent="로그아웃");
+        document.querySelector(".btn.btn-outline-secondary.float-end.login").setAttribute('onclick','location.href=\'/logout\'');
+    }else if (document.querySelector(".btn.btn-outline-secondary.float-end.login").getAttribute("value")==='false'){
+        var list=document.querySelectorAll(".table tr td:nth-child(2) a");
+        for (var i=0;i<list.length;i++){
+            list[i].setAttribute("href","/login");
+        }
+
+    }
+</script>
+
+</body>
+</html>

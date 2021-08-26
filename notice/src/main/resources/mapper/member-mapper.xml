@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwanho.notice.member.mapper.MemberMapper">
+    <select id="memberCheck" parameterType="String" resultType="com.gwanho.notice.member.vo.Member">
+        select id from member where login_id=#{loginId}
+    </select>
+    <insert id="insertMember" parameterType="com.gwanho.notice.member.vo.Member">
+        insert into member set login_id=#{loginId} ,password=#{password},name=#{name}
+    </insert>
+</mapper>
